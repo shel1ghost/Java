@@ -1,0 +1,2 @@
+Sum = 55
+Average = 5.5
