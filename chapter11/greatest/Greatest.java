@@ -6,6 +6,7 @@ class PanelElements extends JPanel{
     private final JLabel l1, l2, l3, l4;
     private final JTextField t1, t2, t3, t4;
     private final JButton btn;
+    private final JCheckBox cb;
     private final JPanel p;
     public PanelElements(){
         l1 = new JLabel("Num1:");
@@ -17,6 +18,7 @@ class PanelElements extends JPanel{
         btn = new JButton("Find Greatest");
         l4 = new JLabel("Greatest:");
         t4 = new JTextField(8);
+        cb = new JCheckBox("Check it");
         p = new JPanel();
         add(l1);
         add(t1);
@@ -24,6 +26,7 @@ class PanelElements extends JPanel{
         add(t2);
         add(l3);
         add(t3);
+        add(cb);
         add(btn);
         add(l4);
         add(t4);
@@ -32,16 +35,18 @@ class PanelElements extends JPanel{
     }
     private class GreatestFinder extends MouseAdapter{
         public void mousePressed(MouseEvent e){
-            int num1, num2, num3, greatest;
-            num1 = Integer.parseInt(t1.getText());
-            num2 = Integer.parseInt(t2.getText());
-            num3 = Integer.parseInt(t3.getText());
-            if(num1 > num2 && num1 > num3){
-                t4.setText(String.valueOf(num1));
-            }else if(num2 > num1 && num2 > num3){
-                t4.setText(String.valueOf(num2));
-            }else{
-                t4.setText(String.valueOf(num3));
+            if(cb.isSelected()){
+                int num1, num2, num3, greatest;
+                num1 = Integer.parseInt(t1.getText());
+                num2 = Integer.parseInt(t2.getText());
+                num3 = Integer.parseInt(t3.getText());
+                if(num1 > num2 && num1 > num3){
+                    t4.setText(String.valueOf(num1));
+                }else if(num2 > num1 && num2 > num3){
+                    t4.setText(String.valueOf(num2));
+                }else{
+                    t4.setText(String.valueOf(num3));
+                }
             }
         }
     }
