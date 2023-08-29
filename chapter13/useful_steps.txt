@@ -1,0 +1,2 @@
+export CLASSPATH=/home/astra/Desktop/study/java/mysql-connector-j-8.1.0/mysql-connector-j-8.1.0.jar:$CLASSPATH
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;
