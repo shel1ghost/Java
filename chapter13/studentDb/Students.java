@@ -30,24 +30,40 @@ class PanelElements extends JPanel{
 		add(l4);
 		RegisterStudent register = new RegisterStudent();
 		btn1.addMouseListener(register);
+		ClearFields clear = new ClearFields();
+		btn2.addMouseListener(clear);
 	}
 	private class RegisterStudent extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
 			String sname = t1.getText();
-			int roll_no = Integer.parseInt(t2.getText());
+			//int roll_no = Integer.parseInt(t2.getText());
+			String roll_no = t2.getText();
 			String address = t3.getText();
-            System.out.println(roll_no+" "+sname+" "+address);
-			try{
-				Class.forName("com.mysql.jdbc.Driver");
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root", "");
-				Statement stmt = conn.createStatement();
-                String sqlStmt = "INSERT INTO students VALUES("+roll_no+","+"'"+sname+"'"+","+roll_no+","+"'"+address+"'"+");";
-                stmt.executeUpdate(sqlStmt);
-				stmt.close();
-				conn.close();
-			}catch(Exception err){
-				System.out.println(err);
+            if(sname.isEmpty() || roll_no.isEmpty()|| address.isEmpty()){
+				l4.setText("Please enter proper details!");
+			}else{
+				l4.setText("");
+				try{
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root", "");
+					Statement stmt = conn.createStatement();
+                	String sqlStmt = "INSERT INTO students VALUES("+roll_no+","+"'"+sname+"'"+","+roll_no+","+"'"+address+"'"+");";
+                	stmt.executeUpdate(sqlStmt);
+					l4.setText("Registration Successful!");
+					stmt.close();
+					conn.close();
+				}catch(Exception err){
+					System.out.println(err);
+				}
 			}
+		}
+	}
+	private class ClearFields extends MouseAdapter{
+		public void mousePressed(MouseEvent e){
+			t1.setText("");
+			t2.setText("");
+			t3.setText("");
+			l4.setText("");
 		}
 	}
 }
