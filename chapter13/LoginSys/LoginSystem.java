@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.sql.*;
 
 class PanelElements extends JPanel{
-	private final JLabel l1, l2, l3;
+	private final JLabel l1, l2, l3, l4;
 	private final JTextField t1, t2;
 	private final JButton btn1, btn2;
 	private final JPanel p;
@@ -12,8 +12,9 @@ class PanelElements extends JPanel{
 		l1 = new JLabel("JAVA LOGIN SYSTEM");
 		l2 = new JLabel();
 		l3 = new JLabel();
-		t1 = new JTextField(10);
-		t2 = new JTextField(10);
+		l4 = new JLabel();
+		t1 = new JTextField(14);
+		t2 = new JTextField(14);
 		btn1 = new JButton("Register");
 		btn2 = new JButton("Login");
 		p = new JPanel(new GridLayout(7, 1));
@@ -38,6 +39,7 @@ class PanelElements extends JPanel{
 			l3.setText("Password:");
 			p.add(t2);
 			p.add(btn1);
+			p.add(l4);
 			ValidRegister vr = new ValidRegister();
 			btn1.addMouseListener(vr);
 		}
@@ -54,18 +56,27 @@ class PanelElements extends JPanel{
 			l3.setText("Password:");
 			p.add(t2);
 			p.add(btn2);
+			p.add(l4);
 			ValidLogin vl = new ValidLogin();
 			btn2.addMouseListener(vl);
 		}
 	}
 	private class ValidRegister extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
-			System.out.println("register pressed!");
+			String username = t1.getText();
+                        String password = t2.getText();
+                        if(username.isEmpty() || password.isEmpty()){
+                                l4.setText("Invalid Credentials!");
+                        }
 		}
 	}
 	private class ValidLogin extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
-			System.out.println("login pressed!");
+			String username = t1.getText();
+                        String password = t2.getText();
+                        if(username.isEmpty() || password.isEmpty()){
+                                l4.setText("Invalid Credentials!");
+                        }
 		}
 	}
 }
