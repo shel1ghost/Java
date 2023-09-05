@@ -12,8 +12,8 @@ class PanelElements extends JPanel{
 		l1 = new JLabel("JAVA LOGIN SYSTEM");
 		l2 = new JLabel();
 		l3 = new JLabel();
-		t1 = new JTextField(8);
-		t2 = new JTextField(8);
+		t1 = new JTextField(10);
+		t2 = new JTextField(10);
 		btn1 = new JButton("Register");
 		btn2 = new JButton("Login");
 		p = new JPanel(new GridLayout(7, 1));
@@ -23,20 +23,49 @@ class PanelElements extends JPanel{
 		add(p, BorderLayout.CENTER);
 		Register register = new Register();
 		btn1.addMouseListener(register);
+		Login login = new Login();
+		btn2.addMouseListener(login);
 	}
 	private class Register extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
+		    p.remove(btn1);
+		    p.remove(btn2);
 			l1.setText("REGISTER");
 			p.add(l2);
 			l2.setText("Username:");
-			p.add(l3);
 			p.add(t1);
+			p.add(l3);
 			l3.setText("Password:");
 			p.add(t2);
-			p.remove(btn2);
-			//l2.setText("Username:");
-			//l3.setText("Password");
-
+			p.add(btn1);
+			ValidRegister vr = new ValidRegister();
+			btn1.addMouseListener(vr);
+		}
+	}
+	private class Login extends MouseAdapter{
+		public void mousePressed(MouseEvent e){
+		    p.remove(btn1);
+		    p.remove(btn2);
+			l1.setText("LOGIN");
+			p.add(l2);
+			l2.setText("Username:");
+			p.add(t1);
+			p.add(l3);
+			l3.setText("Password:");
+			p.add(t2);
+			p.add(btn2);
+			ValidLogin vl = new ValidLogin();
+			btn2.addMouseListener(vl);
+		}
+	}
+	private class ValidRegister extends MouseAdapter{
+		public void mousePressed(MouseEvent e){
+			System.out.println("register pressed!");
+		}
+	}
+	private class ValidLogin extends MouseAdapter{
+		public void mousePressed(MouseEvent e){
+			System.out.println("login pressed!");
 		}
 	}
 }
