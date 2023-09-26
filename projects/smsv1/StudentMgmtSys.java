@@ -25,7 +25,14 @@ class StudentManager{
 			System.out.println("Error: "+err);
 		}
 	}
-	static void AddStudent(String sname, String roll_no, String address){
+	static void AddStudent(){
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter name: ");
+		String sname = sc.nextLine();
+		System.out.print("Enter roll number: ");
+		String roll_no = sc.nextLine();
+		System.out.print("Enter address: ");
+		String address = sc.nextLine();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root", "");
@@ -39,15 +46,34 @@ class StudentManager{
 			System.out.println(err);
 		}
 	}
-	static void UpdateStudent(String roll_no, String updateString, String updateValue){
+	static void UpdateStudent(){
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root", "");
 			Statement stmt = conn.createStatement();
-			String sqlStmt = "UPDATE students SET "+updateString+"="+"'"+updateValue+"'"+"WHERE roll_no="+roll_no+";";
-			stmt.executeUpdate(sqlStmt);
-			System.out.println("Detail updated successfully!");
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Enter the student roll number: ");
+			String roll_no = sc.nextLine();
+			System.out.println("1. Edit Name");
+			System.out.println("2. Edit Address");
+			System.out.print("Select an option: ");
+			String choice = sc.nextLine();
+			if(choice.equals("1")){
+				System.out.print("Enter new name: ");
+				String sname = sc.nextLine(); 
+				String sqlStmt = "UPDATE students SET sname="+"'"+sname+"'"+"WHERE roll_no="+roll_no+";";
+				stmt.executeUpdate(sqlStmt);
+				System.out.println("Name updated successfully!");
+			}else if(choice.equals("2")){
+				System.out.print("Enter new address: ");
+				String address = sc.nextLine();
+				String sqlStmt = "UPDATE students SET address="+"'"+address+"'"+"WHERE roll_no="+roll_no+";";
+				stmt.executeUpdate(sqlStmt);
+				System.out.println("Address updated successfully!");
+			}else{
+				System.out.println("Invalid choice!");
+			}
 			stmt.close();
 			conn.close();
 		}catch(Exception err){
@@ -55,7 +81,10 @@ class StudentManager{
 		}
 
 	}
-	static void DeleteStudent(String roll_no){
+	static void DeleteStudent(){
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the student roll number: ");
+		String roll_no = sc.nextLine();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root", "");
@@ -88,47 +117,20 @@ public class StudentMgmtSys{
 			Scanner sc = new Scanner(System.in);
 			StudentManager sm = new StudentManager();
 
-			String choice = sc.nextLine();
-			StringBuffer roll_no = new StringBuffer();
-			StringBuffer sname = new StringBuffer();
-			StringBuffer address = new StringBuffer();
+			String choice = sc.next();
 		
 			switch(choice){
 				case "1":
 					sm.ViewStudents();
 					break;
 				case "2":
-					System.out.print("Enter name: ");
-					sname = new StringBuffer(sc.nextLine());
-					System.out.print("Enter roll number: ");
-					roll_no = new StringBuffer(sc.nextLine()); 
-					System.out.print("Enter address: ");
-					address = new StringBuffer(sc.nextLine());
-					sm.AddStudent(sname.toString(), roll_no.toString(), address.toString());
+					sm.AddStudent();
 					break;
 				case "3":
-					System.out.print("Enter the student roll number: ");
-					roll_no = new StringBuffer(sc.nextLine());
-					System.out.println("1. Edit Name");
-					System.out.println("2. Edit Address");
-					System.out.print("Select an option: ");
-					String option = sc.nextLine();
-					if(option.equals("1")){
-						System.out.print("Enter new name: ");
-						sname = new StringBuffer(sc.nextLine()); 
-						sm.UpdateStudent(roll_no.toString(), "sname", sname.toString());
-					}else if(option.equals("2")){
-						System.out.print("Enter new address: ");
-						address = new StringBuffer(sc.nextLine());
-						sm.UpdateStudent(roll_no.toString(), "address", address.toString());
-					}else{
-						System.out.println("Invalid choice!");
-					}
+					sm.UpdateStudent();
 					break;
 				case "4":
-					System.out.print("Enter the student roll number: ");
-					roll_no = new StringBuffer(sc.nextLine());
-					sm.DeleteStudent(roll_no.toString());
+					sm.DeleteStudent();
 					break;
 				case "5":
 					System.exit(0);
