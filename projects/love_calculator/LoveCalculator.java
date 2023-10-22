@@ -9,7 +9,7 @@ class PanelElements extends JPanel{
     private final JTextField t1, t2;
     private final JButton btn1, btn2;
     public PanelElements(){
-        p = new JPanel(new GridLayout(8, 1));
+        p = new JPanel(new GridLayout(8, 1, 16, 10));
         //p.setBackground(Color.red);
         l1 = new JLabel("<3 JAVA LOVE CALCULATOR <3");
         l1.setFont(new Font("Serif Italic", Font.BOLD, 24));
@@ -51,7 +51,7 @@ class PanelElements extends JPanel{
             l4.setText("Please enter name!");
           }else{
             Random num = new Random();
-            int value = num.nextInt(50, 100);
+            int value = num.nextInt(51)+50;
             l4.setText("<3 Congrats! Your love is "+value+"% strong <3");
           }
         }
